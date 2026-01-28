@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styels from './MainPage.module.css';
 import axios from 'axios';
-import { PORT } from '../../helpers/API';
+import { API_URL } from '../../helpers/API';
 import type { CardLists } from '../../helpers/interfaces/Card.props';
 import Card from '../../components/Card/Card';
 
@@ -11,7 +11,7 @@ const MainPage = () => {
     useEffect(() => {
         const getAllCinema = async() => {
             try{
-                const response = await axios.get(`${PORT}/cinema/films`)
+                const response = await axios.get(`${API_URL}/cinema/films`)
                 setCards(response.data.films)
             }
             catch(error){

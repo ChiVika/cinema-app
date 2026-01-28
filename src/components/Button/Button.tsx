@@ -4,12 +4,12 @@ import type { ButtonProps } from './Button.props';
 
 
 
-function Button({children, className, appointment = 'main',  ...props}: ButtonProps){
+function Button({children, className, variant = 'main',  ...props}: ButtonProps){
     return(
         <>
             <button className={cn(styles['button'], styles['accent'], className,{
-                [styles['main']]: appointment == 'main',
-                [styles['secondory']]: appointment == 'secondory'
+                [styles['main']]: variant == 'main',
+                [styles['secondory']]: variant == 'secondary'
             }
                 
             )} {...props}>{children}</button>
