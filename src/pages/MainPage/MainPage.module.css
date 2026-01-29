@@ -1,7 +1,23 @@
 .headling{
     font-weight: 700;
     padding: 0 16px;
+    
+}
+.MainPage__head{
+    display: flex;
+    gap: 32px;
+    align-items: center;
     margin-bottom: 16px;
 }
 
+
+
+@media (max-width: 450px){
+    .headling{
+        font-weight: 700;
+        padding: 0 16px;
+        font-size: 24px;
+        padding: 0;
+    }
+}
 
