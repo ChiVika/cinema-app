@@ -8,22 +8,29 @@ import type { ScheduleProps } from '../../helpers/interfaces/Schedule.props';
 import cn from 'classnames';
 import Button from '../../components/Button/Button';
 import ButtonHeader from '../../components/ButtonHeader/ButtonHeader';
+import { observer } from 'mobx-react-lite';
+import SeanceStore from '../../store/Seance.store';
 
-const CinemaDetailsPage = () => {
+const CinemaDetailsPage = observer(() => {
   const MAX_WORDS = 29;
   const { id } = useParams();
   const [filmDetail, setfilmDetail] = useState<CardProps>();
   const navigate = useNavigate();
   const [schedule, setSchedule] = useState<ScheduleProps[]>([]);
-  const [isActiveButton, setIsActiveButton] = useState<number>(0);
+  const [isActiveButton, setIsActiveButton] = useState<number>(0); //это про дату
   const [descOpen, setDescOpen] = useState<boolean>(false);
+
 
   useEffect(() => {
     const getFilmDetail = async() => {
+      if(!id){
+        return;
+      }
       try{
         const response = await axios.get(`${API_URL}/cinema/film/${id}`);
         console.log(response.data.film);
         setfilmDetail(response.data.film);
+        SeanceStore.setCurrentFilm(id);
       }
       catch(error){
         console.log('Ошибка получения детализированной информации о фильме', error);
@@ -35,10 +42,17 @@ const CinemaDetailsPage = () => {
 
   useEffect(() => {
     const getSchedule = async() => {
+      if(!id){
+        return;
+      }
       try{
         const response = await axios.get(`${API_URL}/cinema/film/${id}/schedule`);
         console.log(response.data.schedules);
         setSchedule(response.data.schedules);
+        SeanceStore.setCurrentDate(response.data.schedules[0].date);
+        SeanceStore.setCurrentHall(response.data.schedules[0].seances[0].hall.name);
+        SeanceStore.setCurrentTime(response.data.schedules[0].seances[0].time);
+
       }
       catch(error){
         console.log('Ошибка получения данных о расписании фильма', error);
@@ -46,6 +60,7 @@ const CinemaDetailsPage = () => {
     };
     getSchedule();
   }, [id]);
+
 
   const getWeekDay = (dateString: string) => {
     const [day, month, year] = dateString.split('.');
@@ -85,6 +100,11 @@ const CinemaDetailsPage = () => {
   const toggleDescription = () => {
     setDescOpen(!descOpen);
   };
+
+
+
+
+  
   
 
 
@@ -141,7 +161,10 @@ const CinemaDetailsPage = () => {
                       [styles['with-divider']]: index !== schedule.length - 1,
                     },
                   )}
-                  onClick={() => setIsActiveButton(index)}
+                  onClick={() => {
+                    setIsActiveButton(index);
+                    SeanceStore.setCurrentDate(item.date);
+                  }}
                 >
                   {getWeekDay(item.date)}
                 </button>
@@ -162,8 +185,13 @@ const CinemaDetailsPage = () => {
                   <div key={hallName} className={styles['hall__block']}>
                     <h3 className={styles['hall__colour']}>{hallTranslation(hallName)} зал</h3>
                     <div className={styles['hall__times']}>
-                      {times.map(time => 
-                        <button key={time} className={styles['hall__time-button']}>{time}</button>,
+                      {times.map((time) => 
+                        <button key={time} className={cn(styles['hall__time-button'], {
+                          [styles['active-time']]: SeanceStore.currentTime == time,
+                        })} onClick={() => {
+                          SeanceStore.setCurrentHall(hallName);
+                          SeanceStore.setCurrentTime(time);
+                        }}>{time}</button>,
                       )}
                     </div>
                   </div>
@@ -172,10 +200,10 @@ const CinemaDetailsPage = () => {
             </div>
           ))}
         </div>
-        <Button className={styles['schedule__button']}>Продолжить</Button>
+        <Button className={styles['schedule__button']} onClick={() => navigate(`/cinema/${SeanceStore.currentFilm}/places`)}>Продолжить</Button>
       </section>
     </>
   );
-};
+});
 
 export default CinemaDetailsPage;
