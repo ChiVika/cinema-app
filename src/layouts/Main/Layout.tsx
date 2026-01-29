@@ -1,6 +1,5 @@
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import styles from './Layout.module.css';
-import cn from 'classnames';
 
 const Layout = () => {
   return(
@@ -21,7 +20,6 @@ const Layout = () => {
                                 Билеты
               </Link>
             </div>
-                        
             <div className={styles['header__navs--block']}>
               <button className={styles['header__nav']}>
                 <img src="/exit.svg" alt="Выйти" width={24} height={24}/>
@@ -38,29 +36,6 @@ const Layout = () => {
       <main className={styles['content']}>
         <Outlet />
       </main>
-
-      <footer className={styles['footer']}>
-        <nav className={styles['footer__navs']}>
-          <NavLink to='/' className={({ isActive }) => (cn(styles['footer__link'], {
-            [styles['active']]: isActive,
-          }))}>
-            <img src="/Movie.svg" alt="Афиша" width={24} height={24}/>
-            Афиша
-          </NavLink>
-          <NavLink to='/ticket' className={({ isActive }) => (cn(styles['footer__link'], {
-            [styles['active']]: isActive,
-          }))}>
-            <img src="/ticket.svg" alt="Билеты" width={24} height={24}/>
-            Билеты
-          </NavLink>
-          <NavLink to='/profile' className={({ isActive }) => (cn(styles['footer__link'], {
-            [styles['active']]: isActive,
-          }))}>
-            <img src="/profile.svg" alt="Профиль" width={24} height={24}/>
-            Профиль
-          </NavLink>
-        </nav>
-      </footer>
     </>
   );
 };

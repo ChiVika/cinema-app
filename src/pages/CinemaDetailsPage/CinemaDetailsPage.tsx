@@ -7,13 +7,16 @@ import type { CardProps } from '../../helpers/interfaces/Card.props';
 import type { ScheduleProps } from '../../helpers/interfaces/Schedule.props';
 import cn from 'classnames';
 import Button from '../../components/Button/Button';
+import ButtonHeader from '../../components/ButtonHeader/ButtonHeader';
 
 const CinemaDetailsPage = () => {
+  const MAX_WORDS = 29;
   const { id } = useParams();
   const [filmDetail, setfilmDetail] = useState<CardProps>();
   const navigate = useNavigate();
   const [schedule, setSchedule] = useState<ScheduleProps[]>([]);
   const [isActiveButton, setIsActiveButton] = useState<number>(0);
+  const [descOpen, setDescOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const getFilmDetail = async() => {
@@ -68,14 +71,33 @@ const CinemaDetailsPage = () => {
     }
   };
 
+  const hide_desc = (text: string , max_len: number) => {
+    const world = text.split(' ');
+    if(world.length <= max_len){
+      return text;
+    }
+    else{
+      const hide_text = world.slice(0, max_len).join(' ');
+      return `${hide_text}... `;
+    }
+  };
 
+  const toggleDescription = () => {
+    setDescOpen(!descOpen);
+  };
   
+
+
   return(
     <>
       <button className={styles['card__back']} onClick={() => navigate('/')}>
         <img src="/back.svg" alt="Вернуться назад" />
         <p>Назад</p>
       </button>
+      <div className={styles['MainPage__head']}>
+        <ButtonHeader variant='close' onClick={() => navigate('/')}/>
+        <h2 className={styles['headling']}>О фильме</h2>
+      </div>
       <section>
         <div className={styles['card']}>
           <div className={styles['card__header']}>
@@ -86,11 +108,22 @@ const CinemaDetailsPage = () => {
             </div>
           </div>
           <div className={styles['card__datas']}>
-            <h1>{filmDetail?.name}</h1>
+            <h1 className={styles['card__title']}>{filmDetail?.name}</h1>
             <p className={styles['card__info']}>Фильм</p>
             <img src="/Ratings.png" alt="Рейтинг" width={120} height={24} className={styles['card__stars']}/>
             <p className={styles['card__rating']}>Kinopoisk - {filmDetail?.userRatings.kinopoisk}</p>
-            <p className={styles['card__desc']}>{filmDetail?.description}</p>
+            <div className={styles['card__block-text']}>
+              <p className={styles['card__desc--mobile']}>
+                {filmDetail?.description ? (descOpen ? filmDetail.description: hide_desc(filmDetail.description, MAX_WORDS)) : ''}
+                {filmDetail?.description && filmDetail.description.split(' ').length > MAX_WORDS && (
+                  <button onClick={toggleDescription} className={styles['card__desc-more']}>{descOpen ? 'скрыть' : 'раскрыть'}</button>)
+                }
+              </p>
+            </div>
+            <div className={styles['card__block-text']}>
+              <p className={styles['card__desc']}>{filmDetail?.description}</p>
+            </div>
+
           </div>
         </div>
       </section>
