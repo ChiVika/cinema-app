@@ -18,6 +18,7 @@ const CinemaDetailsPage = observer(() => {
   const navigate = useNavigate();
   const [schedule, setSchedule] = useState<ScheduleProps[]>([]);
   const [isActiveButton, setIsActiveButton] = useState<number>(0); //это про дату
+  
   const [descOpen, setDescOpen] = useState<boolean>(false);
 
 
@@ -187,7 +188,7 @@ const CinemaDetailsPage = observer(() => {
                     <div className={styles['hall__times']}>
                       {times.map((time) => 
                         <button key={time} className={cn(styles['hall__time-button'], {
-                          [styles['active-time']]: SeanceStore.currentTime == time,
+                          [styles['active-time']]: SeanceStore.currentTime == time && SeanceStore.currentHall == hallName,
                         })} onClick={() => {
                           SeanceStore.setCurrentHall(hallName);
                           SeanceStore.setCurrentTime(time);
