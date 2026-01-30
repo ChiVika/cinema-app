@@ -20,6 +20,10 @@ const router = createBrowserRouter([
         path: '/cinema/:id',
         element: <CinemaDetailsPage/>,
       },
+      {
+        path: '/cinema/:id/places',
+        element: <>Выбор места</>,
+      },
     ],
   },
 ]);

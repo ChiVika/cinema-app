@@ -1,3 +1,4 @@
+
 .header {
   position: fixed;
   top: 0;
@@ -21,6 +22,10 @@
   min-height: 34px;
   box-sizing: border-box;
   gap: 32px;
+}
+
+.header__back--mobile{
+  display: none;
 }
 
 .header__logo {
@@ -61,8 +66,27 @@
 
 
 .content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   width: 100%;
   max-width: 960px;
   margin: 130px auto 0;
   box-sizing: border-box;
+}
+
+
+@media (max-width: 450px){
+  .header{
+    display: none;
+  }
+  .header__back--mobile{
+    display: block;
+  }
+  .content{
+    max-width: 328px;
+    margin-top: 12px;
+    margin-bottom: 28px;
+  }
+
 }

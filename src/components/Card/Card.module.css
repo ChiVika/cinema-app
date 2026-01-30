@@ -66,3 +66,18 @@
     font-weight: 500;
     margin-bottom: 4px;
 }
+
+@media (max-width: 450px) {
+    .card{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+    }
+    .card__content{
+        width: 328px;
+    }
+    .card__name{
+        font-size: 20px;
+    }
+}

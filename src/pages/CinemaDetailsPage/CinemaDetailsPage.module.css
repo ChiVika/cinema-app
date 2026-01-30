@@ -43,6 +43,8 @@
     margin-left: 32px;
     max-width: 629px;
     color: var(--black-colour);
+}
+.card__title{
     font-weight: 700;
     font-size: 26px;
 }
@@ -66,6 +68,9 @@
     font-weight: 400;
     color: var(--gray-colour);
 }
+.card__block-text{
+    display: flex;
+}
 .card__back{
     display: flex;
     align-items: center;
@@ -75,6 +80,183 @@
     gap: 16px;
     color: var(--secondary-colour);
 }
+.card__more-text{
+    display: none;
+}
 .schedule__title{
     font-weight: 700;
+    margin-bottom: 24px;
+}
+.schedule__data{
+    display: flex;
+    align-items: center;
+    background-color: var(--schedule-colour);
+    height: 44px;
+    max-width: 699px;
+    width: 100%;
+    border-radius: 14px;
+    margin-bottom: 24px;
+}
+.schedule__data > div:first-child{
+    margin-left: 2px;
+}
+.schedule__data--button{
+    position: relative;
+    font-weight: 400;
+    font-size: 13px;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 10px 16px;
+    border-radius: 14px;
+    color: var(--secondary-colour);
+    height: 40px;
+    flex: 1;
+}
+.MainPage__head{
+    display: none;
+}
+.schedule__data--button:hover{
+    background-color: #ffffff;
+    border-radius: 14px;
+    color: var(--black-colour);
+}
+.active{
+    background-color: #ffffff;
+    border-radius: 14px;
+    color: var(--black-colour);
+}
+.schedule__data-container{
+    position: relative;
+    
+}
+.schedule__data--button.with-divider::after{
+    content: '';
+    background-color: rgba(206, 210, 218, 1);
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 7px;
+    width: 1px;
+    height: 24px;
+}
+.schedule{
+    min-height: 288px;
+}
+.hall__colour{
+    font-weight: 400;
+    font-size: 12px;
+    color: var(--gray-colour);
+    margin-bottom: 16px;
+}
+.hall__time-button{
+    box-sizing: border-box;
+    min-height: 40px;
+    padding: 10px 16px;
+    border: 1px solid var(--Indicator-Light, rgba(206, 210, 218, 1));
+    font-size: 14px;
+    border-radius: 14px;
+
+}
+.hall__time-button:hover{
+    background-color: rgba(151, 161, 175, 1);
+    color: #ffffff;
+    border: none;
+}
+.hall__times{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.hall__block{
+    margin-bottom: 24px;
+}
+.schedule__button{
+    margin-top: 40px;
+    padding: 16px 112.5px;
+}
+.card__desc--mobile{
+    display: none;
+}
+.active-time{
+    background-color: rgba(151, 161, 175, 1);
+    border: none;
+    color: #ffffff;
+}
+
+@media (max-width: 450px) {
+    .card__back{
+        display: none;
+    }
+    .MainPage__head{
+        display: flex;
+        gap: 32px;
+        align-items: center;
+        margin-bottom: 16px;
+    }
+    .headling{
+        font-weight: 700;
+        padding: 0 16px;
+        font-size: 24px;
+        padding: 0;
+    }
+    .card{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .card__header{
+        min-width: 328px;
+        width: 100%;
+    }
+    .card__title{
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+    .card__datas{
+        margin-left: 0;
+    }
+    .card__rating{
+        margin-bottom: 24px;
+    }
+    .card__desc {
+        display: -webkit-box;
+        -webkit-line-clamp: 6;     
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.4em;         
+        max-height: 144px;             
+    }
+    .card__more-text{
+        display: block;
+    }
+    .schedule__data{
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        justify-content: flex-start; 
+        height: 44px;
+    }
+    .schedule__data--button{
+        width: 99px;
+        border-radius: 14px;
+        font-size: 12px;
+        
+    }
+    .card__desc-more{
+        color: rgba(151, 161, 175, 1);
+        font-size: 16px;
+    }
+    .card__desc--mobile{
+        display: block;
+    }
+    .card__desc{
+        display: none;
+    }
+    .schedule__button{
+        margin-top: 0;
+    }
+
+
 }
